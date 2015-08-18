@@ -1,0 +1,16 @@
+{
+  "name": "https-only",
+  "description": "ExpressJS middleware to force applications to accept HTTPS requests only.",
+  "version": "0.0.1",
+  "author": "Justin de Guzman <justin@justindeguzman.net> (http://justindeguzman.net)",
+  "devDependencies": {
+    "express": "~4.13.3",
+    "request": "~2.60.0",
+    "should": "~7.0.4"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  }
+}
