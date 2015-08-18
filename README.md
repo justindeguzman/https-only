@@ -3,7 +3,7 @@ ExpressJS middleware to force applications to accept HTTPS requests only.
 
 ## Installation
 
-  $ npm install https-only
+    $ npm install https-only
   
 ## Usage
 
@@ -32,4 +32,4 @@ app.listen(3000)
 
 ## Running Tests
 
-  $ mocha
+    $ mocha
