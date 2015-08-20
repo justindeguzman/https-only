@@ -30,6 +30,14 @@ app.use(function(err, req, res, next) {
 app.listen(3000)
 ```
 
+## Development Mode
+
+Development mode temporarily allows HTTP requests when NODE_ENV is set to `development`.
+
+```js
+  app.use(httpsOnly(true))
+```
+
 ## Running Tests
 
     $ mocha

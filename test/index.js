@@ -13,43 +13,81 @@ var httpsOnly = require('../lib')
 
 describe('https-only', function () {
 
+  var port = 9999
+
   /*
    * Setup test server.
    */
 
-  var app
-  var port = 9999
-
-  before(function () {
-    app = express()
+  function setupTestServer (allowDebug) {
+    var app = express()
 
     // Enable https-only
-    app.use(httpsOnly())
+    app.use(httpsOnly(allowDebug))
 
-    app.use('/', function(req, res) {
+    app.use('/', function (req, res) {
       res.status = 200
       res.send('success')
     })
 
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
       res.status(err.status)
       res.send({message: err.message})
     })
 
-    app.listen(port)
-  })
+    return app.listen(port)
+  }
 
   /*
    * Tests.
    */
 
   it('should be an invalid request', function (done) {
-    request('http://localhost:' + port + '/', function(err, response, body) {
+    var server = setupTestServer()
+
+    request('http://localhost:' + port + '/', function (err, response, body) {
       should.not.exist(err)
       should.exist(response)
       should.exist(response.statusCode)
       response.statusCode.should.eql(400)
+      server.close()
       done()
     })
   })
+
+  it('should be a valid HTTP request when NODE_ENV=development and ' +
+     'allowDebug=true',
+    function (done) {
+      process.env.NODE_ENV = 'development'
+      var allowDebug = true
+      var server = setupTestServer(allowDebug)
+
+      request('http://localhost:' + port + '/', function (err, response, body) {
+        should.not.exist(err)
+        should.exist(response)
+        should.exist(response.statusCode)
+        response.statusCode.should.eql(200)
+        server.close()
+        done()
+      })
+    }
+  )
+
+  it('should be an invalid HTTP request when NODE_ENV=development and ' +
+     'allowDebug=false',
+    function (done) {
+      process.env.NODE_ENV = 'development'
+      var allowDebug = false
+      var server = setupTestServer(allowDebug)
+
+      request('http://localhost:' + port + '/', function (err, response, body) {
+        should.not.exist(err)
+        should.exist(response)
+        should.exist(response.statusCode)
+        response.statusCode.should.eql(400)
+        server.close()
+        done()
+      })
+    }
+  )
 })
