@@ -1,7 +1,7 @@
 {
   "name": "https-only",
   "description": "ExpressJS middleware to force applications to accept HTTPS requests only.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Justin de Guzman <justin@justindeguzman.net> (http://justindeguzman.net)",
   "devDependencies": {
     "express": "~4.13.3",
