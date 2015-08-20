@@ -32,10 +32,11 @@ app.listen(3000)
 
 ## Development Mode
 
-Development mode temporarily allows HTTP requests when NODE_ENV is set to `development`.
+Development mode temporarily allows HTTP requests when NODE_ENV is set to `development` AND `true` is passed into httpsOnly.
 
 ```js
-  app.use(httpsOnly(true))
+  var allowDebug = true
+  app.use(httpsOnly(allowDebug))
 ```
 
 ## Running Tests
