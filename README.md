@@ -42,3 +42,6 @@ app.use(httpsOnly(allowDebug))
 ## Running Tests
 
     $ mocha
+
+## License
+MIT
