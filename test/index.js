@@ -26,7 +26,7 @@ describe('https-only', function () {
     app.use(httpsOnly(allowDebug))
 
     app.use('/', function (req, res) {
-      res.status = 200
+      res.status(200)
       res.send('success')
     })
 
